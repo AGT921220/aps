@@ -1,0 +1,52 @@
+version: '3'
+
+networks:
+  appnetwork:
+
+services:
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx-aps
+    ports:
+      - "8088:80"
+    volumes:
+      - ./public_html:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      # - ./nginx/log/error.log:/var/log/nginx/error.log
+      # - ./nginx/log/access.log:/var/log/nginx/access.log
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - appnetwork
+
+  mysql:
+    image: mysql:5.7.32
+    container_name: mysql-aps
+    restart: on-failure
+    tty: true
+    ports:
+      - "4306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_USER=aps
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=aps
+    volumes:
+      # - ${PWD}/aps.sql:/docker-entrypoint-initdb.d/aps.sql
+      - ${PWD}/aps.sql:/var/lib/mysql
+    networks:
+      - appnetwork
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php-aps
+    volumes:
+      - ./public_html:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - appnetwork
