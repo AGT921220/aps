@@ -15,20 +15,17 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('item_code')->nullable();
-            $table->string('parent_code')->nullable();
-            $table->string('description')->nullable();
+            $table->string('name')->nullable()->index();
+            $table->string('item_code')->nullable()->index();
+            $table->string('parent_code')->nullable()->index();
+            $table->text('description')->nullable();
             $table->string('size')->nullable();
             $table->string('family')->nullable();
-
-            
             $table->string('color')->nullable();
             $table->string('colors')->nullable();
-
             $table->string('material')->nullable();
             $table->string('capacity')->nullable();
-            $table->integer('batteries')->nullable();
+            $table->string('batteries')->nullable();
             $table->string('printing')->nullable();
             $table->string('printing_area')->nullable();
             $table->decimal('nw')->nullable();
@@ -38,6 +35,7 @@ class CreateProductsTable extends Migration
             $table->decimal('length')->nullable();
             $table->decimal('count_box')->nullable();
             $table->string('img')->nullable();
+            $table->decimal('existences')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

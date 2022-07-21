@@ -14,7 +14,7 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_POST, 1);
 curl_setopt($ch, CURLOPT_POSTFIELDS,"demo=1");//Opcional
 curl_setopt($ch,
-CURLOPT_URL,"https://www.contenidopromo.com/wsds/mx/catalogo/");
+CURLOPT_URL,"https://www.contenidopromo.com/wsds/mx/existencias/");
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 $result=curl_exec($ch);
 curl_close($ch);
