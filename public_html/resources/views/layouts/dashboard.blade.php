@@ -118,6 +118,7 @@
               @include('dashboard.partials.contenido.proveedores')
               @include('dashboard.partials.contenido.facturas')
               @include('dashboard.partials.contenido.facturasProv')
+              @include('dashboard.partials.contenido.newProducts')
 
 
         </li>

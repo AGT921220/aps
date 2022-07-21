@@ -251,9 +251,6 @@ Route::group(['prefix' => 'cotizaciones'], function () {
     //AJAX
     Route::post('/ajax/detalle/agregar', 'DetalleCotizacionController@agregar')->name('agregar_detalle_cotizacion');
     Route::post('/ajax/detalle/eliminar', 'DetalleCotizacionController@eliminar')->name('eliminar_detalle_cotizacion');
-
-
-
-
-
 });
+
+Route::resource('/new-products', 'Dashboard\NewProductsController')->only(['index']);
