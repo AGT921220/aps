@@ -1,0 +1,18 @@
+.delete_servicio {
+    display: flex !important;
+    align-items: center !important;
+    margin: 1em auto !important;
+    width: 10% !important;
+    justify-content: space-around !important;
+    min-width: 100px !important;
+}
+
+.oculto {
+    display: none !important;
+}
+
+.profile_image_show:hover {
+    cursor: pointer;
+}
+
+

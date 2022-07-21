@@ -1,0 +1,43 @@
+tfoot input {
+    width: 100%;
+    padding: 3px;
+    box-sizing: border-box;
+}
+table.dataTable tbody tr button{
+    padding: 7px;
+}
+table.dataTable tbody tr{
+    background-color: transparent !important;
+}
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th{
+    border: 1px solid #3c8dbc;
+    border-top: 1px solid #3c8dbc !important;
+    text-align: center;
+}
+table.dataTable tbody th, table.dataTable tbody td{
+    border-right: 1px solid #3c8dbc !important;
+    border-left: 1px solid #3c8dbc !important;
+}
+table.dataTable tfoot th, table.dataTable tfoot td {
+    padding: 10px 18px 6px 18px;
+    border-top: 1px solid #3c8dbc !important;
+    border: 1px solid #3c8dbc !important;
+}
+table.dataTable tfoot th, table.dataTable tfoot td {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+tfoot input {
+    border: none!important;
+    background-color: transparent!important;
+    text-align: center !important;
+    outline: none  !important;
+}
+.dt-buttons button{
+    border: 1px solid #3c8dbc !important;
+    border-radius: 3px !important;
+    margin: 10px 5px !important;
+}
+#datatable{
+    display: none  !important;
+}

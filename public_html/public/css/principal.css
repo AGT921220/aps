@@ -1,0 +1,331 @@
+
+.user-panel{
+    cursor: pointer;
+}
+optgroup{
+    font-weight: bold !important;
+}
+.opt_gp{
+    font-size: 2em !important;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+/*    color: #555555;*/
+}
+label{
+    color: #183f8c;
+}
+
+/*NAVBAR CONTAINER*/
+.navbar{
+    background-color: #d6e8fd  !important;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.navbar_top{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0.5em 0em 0em 0em;
+
+    flex-wrap: wrap;
+}
+
+.navbar_text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:1%;
+    
+}
+.navbar_text h3,.navbar_text h5{
+    color:#0000FF;
+}
+.navbar_text h3{
+    font-size: 1.2em;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align:center;
+}
+.navbar_text h5{
+    font-size: 1em;
+    text-align: end;
+    text-align:center;
+}
+#logo_aps{
+    width: 15vw !important;
+    min-width: 170px !important;
+    cursor: pointer;
+}
+
+.navbar_bottom{
+    background-color: #183f8c !important;
+    width: 100%;
+    margin-top: 0.5em;
+    justify-content: space-around;
+    text-align: center !important;
+}
+.navbar_bottom .nav-item a{
+ /*   color:#FFFFFF !important;*/
+}
+.nav-item .nav-link{
+    cursor: pointer;
+    color:#FFFFFF !important;
+}
+/*NAVBAR CONTAINER*/
+/*WRAPPER CONTENT*/
+.wrapper_Content{
+/*    margin-top: 34vh !important;*/
+}
+/*WRAPPER CONTENT*/
+/*IMAGENES*/
+.imgContainer{
+    justify-content: center !important;
+}
+/*IMAGENES*/
+/*SECCION PRODUCTOS*/
+.productContainer{
+    width: 95%;
+    margin: auto;
+    display: flex;
+    margin-top: 5%;
+    flex-direction: column;
+}
+.productContainer h4,.title{
+    color: #0000FF;
+    background-color: #d6e8fd;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    padding: 1em;
+}
+.image_Container{
+    justify-content: center;
+}
+.img-responsive{
+    width: 100% !important;
+}
+/*SECCION PRODUCTOS*/
+
+/*DROPDOWN*/
+.dropdown-item{
+    cursor: pointer;
+}
+.dropdown-item:hover{
+    /*background-color: #183f8c !important;*/
+}
+
+.dropdown-submenu {
+    position: relative;
+  }
+  
+  .dropdown-submenu a::after {
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 6px;
+    top: .8em;
+  }
+  
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: .1rem;
+    margin-right: .1rem;
+  }
+  /*CAROUSEL*/
+.carouselContent{
+
+    justify-content: center;
+}
+.item__third  img{
+    height: auto !important;
+    width: auto !important;
+    width: 90vw !important;
+    min-height: 150px;
+}
+  /*CAROUSEL*/
+
+/*SECCION LLAMENOS*/
+.llamenos_content{
+    display: flex;
+    justify-content: center;
+    margin: 5vh 0;
+}
+.llamenos_content div{
+    display: flex;
+    flex-direction: column;
+    padding-left: 2em;
+    text-align: center;
+}
+.llamenos_red{
+    color: red;
+    font-weight: bold;
+}
+.phones_wpp{
+    flex-direction: row !important;
+    padding: 0 !important;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.phones_wpp div{
+    flex-direction: revert;
+    align-items: center;
+    padding: 0;
+    margin: auto;
+}
+.phones_wpp a{
+    padding: 5px;
+    color: #000000;
+}
+.wpp_icon{
+    color: #25D366    ;
+    color: green !important;
+}
+.phones_wpp div:hover{
+    font-size: 1.2em;
+}
+/*SECCION LLAMENOS*/
+/*COTIZAR*/
+.cotiza_red{
+    color: red;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    font-size: 0.7em;
+    height: 100%;
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+}
+/*COTIZAR*/
+/*CONTACTO*/
+#contacto div{
+    margin: auto;
+}
+.contact_datos{
+    margin: 2em auto !important;
+    padding-left: 5%;
+}
+.contact_title{
+    display: flex;
+}
+.contact_title i{
+    margin: auto 10px;
+}
+.contact_title h4{
+    padding: 0;
+    margin: auto 0;
+}
+.contact_subtitle{
+    margin-left: 3em !important;
+}
+.contact_subtitle a{
+    outline: none;
+    text-decoration: none;
+}
+.contact_subtitle span,.contact_subtitle i{
+    color: #000000;
+    margin: 2px;
+}
+#contacto .contact_top{
+    text-align: center;
+    padding: 0 2em;
+/*    color: #183f8c;*/
+}
+#contacto h2,#nosotros h2,#nosotros h4{
+    text-align: center;
+}
+#nosotros{
+
+}
+.nosotrosContent{
+    background-color: #d6e8fd;
+    padding: 2em 0;
+    display: flex;
+    flex-wrap: wrap;
+} 
+#nosotros h4{
+    
+}
+#nosotros p{
+    text-align: center;
+}
+/*CONTACTO*/
+/*FOOTER*/
+footer{
+    display: flex;
+    flex-direction: column;
+}
+.footer_top{
+    display: flex;
+    justify-content: space-around;
+    padding: 2em 0;
+    background-color: #183f8c;
+    flex-wrap: wrap;
+}
+.footer_botton{
+
+}
+footer div,footer div a{
+    color:#FFFFFF;
+}
+footer div p{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 0;
+    margin: auto;
+    flex-wrap: wrap;
+}
+/*FOOTER*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.btn-flotante {
+	font-size: 16px; /* Cambiar el tamaño de la tipografia */
+	text-transform: uppercase; /* Texto en mayusculas */
+	font-weight: bold; /* Fuente en negrita o bold */
+	color: #ffffff; /* Color del texto */
+	border-radius: 5px; /* Borde del boton */
+	letter-spacing: 2px; /* Espacio entre letras */
+	background-color: #183f8c; /* Color de fondo */
+	padding: 18px 30px; /* Relleno del boton */
+	position: fixed;
+	bottom: 100px;
+    bottom: 250px;
+	right: 40px;
+	transition: all 300ms ease 0ms;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	z-index: 99;
+}
+.btn-flotante:hover {
+	background-color: #183f8c; /* Color de fondo al pasar el cursor */
+	transform: translateY(-7px);
+    color: #ffffff !important;
+    text-decoration:none !important;
+}
+@media only screen and (max-width: 600px) {
+ 	.btn-flotante {
+		font-size: 14px;
+		padding: 12px 20px;
+		bottom: 250px;
+		right: 20px;
+	}
+}
