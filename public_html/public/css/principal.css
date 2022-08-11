@@ -89,14 +89,14 @@ label{
 }
 /*IMAGENES*/
 /*SECCION PRODUCTOS*/
-.productContainer{
+.home_content{
     width: 95%;
     margin: auto;
     display: flex;
     margin-top: 5%;
     flex-direction: column;
 }
-.productContainer h4,.title{
+.home_content h4,.title{
     color: #0000FF;
     background-color: #d6e8fd;
     width: 100%;

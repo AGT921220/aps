@@ -3,45 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Categorias;
+use App\Product;
 use App\Subcategorias;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
 
-    }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('dashboard');
+        $categories = Product::select(DB::raw('DISTINCT family'))
+            ->get();
+
+        $categories = $categories->map(function ($category) {
+            $category->type = ucfirst($category->family);
+            $category->family = str_replace(' ', '-', $category->family);
+            return $category;
+        });
+        return view('page.index', compact('categories'));
     }
 
-    public function home(){
-        $categorias = Categorias::where('status','Visible')->get();
+    private function getSections()
+    {
+        $sections = [
+         'bebidas',
+         'bienestar',
+         'botargas',
+         'calendarios',
+         'escritura',
+         'hogar-herramientas',
+         'llaveros',
+         'loncheras-hieleras',
+         'mochilas-bolsas',
+         'niños',
+         'oficina',
+         'recnologia',
+         'textiles',
+         'viaje'
+        ];
+        return collect($sections);
+    }
+    public function home()
+    {
+        $categorias = Categorias::where('status', 'Visible')->get();
 
-        foreach($categorias as  $item){
-            $item->subcategorias  = Subcategorias::where('status','Visible')->where('category',$item->id)->get();          
+        foreach ($categorias as  $item) {
+            $item->subcategorias  = Subcategorias::where('status', 'Visible')->where('category', $item->id)->get();
         }
-        // $subcategorias = Subcategorias::where('status','Visible')
-        // ->whereIn('category',$categorias)
-        // ->get();
 
-        return view('home',compact('categorias'));
-        // foreach($categorias as $item){
-
-        // }
-
+        // return $categorias;
+        return view('home', compact('categorias'));
     }
 }

@@ -9,6 +9,9 @@
                         <span>Lista de Productos</span>
                     </div>
 
+
+                    <a class="btn btn-primary" href="/sync/products">Sincronizar Productos</a>
+                    <a class="btn btn-primary" href="/sync/products-existences">Sincronizar Existencias</a>
                     <div class="card-body" style="overflow-x:scroll">
                         <table class="table" id="datatable" style="overflow-x:scroll">
                             <thead>

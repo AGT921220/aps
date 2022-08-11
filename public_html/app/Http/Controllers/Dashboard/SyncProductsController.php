@@ -1,25 +1,15 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Product;
-use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 
-class MigrateProductCatalogPromoOption extends Command
+class SyncProductsController extends Controller
 {
-    protected $signature = 'migrate_product_catalog_promo_option';
-
-    protected $description = 'Migra Productos de Promo Opción al Catálogo';
-
-    public function __construct()
+    public function index()
     {
-        parent::__construct();
-    }
-
-    public function handle()
-    {
-        info('MigrateProductCatalogPromoOption');
         $type = 'catalogo';
         $promoOptionProducts = $this->getPromoOptionProducts($type);
         $localProducts = $this->getLocalProducts();
@@ -38,7 +28,9 @@ class MigrateProductCatalogPromoOption extends Command
         }
         $this->insertNewValues($toInsert);
         $this->updateValues($toUpdate);
+        return redirect('/new-products')->with('success', 'Productos Actualizados');
     }
+
 
     private function getPromoOptionProducts(string $type): array
     {
