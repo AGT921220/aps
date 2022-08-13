@@ -4,7 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @if(isset($urlMeta))
+    <meta name="meta" content="{{$urlMeta}}">
 
+    @endif
+
+    
+    @yield('metas')
     <title>Aps</title>
 
 

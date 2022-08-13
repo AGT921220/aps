@@ -10,8 +10,8 @@
                     </div>
 
 
-                    <a class="btn btn-primary" href="/sync/products">Sincronizar Productos</a>
-                    <a class="btn btn-primary" href="/sync/products-existences">Sincronizar Existencias</a>
+                    <a class="btn btn-primary sync_promo_products" href="/sync/products">Sincronizar Productos</a>
+                    <a class="btn btn-primary sync_promo_products_exists" href="/sync/products-existences">Sincronizar Existencias</a>
                     <div class="card-body" style="overflow-x:scroll">
                         <table class="table" id="datatable" style="overflow-x:scroll">
                             <thead>
@@ -101,4 +101,6 @@
 </style>
 
 <script src="{{ asset('js/datatables.js') }}" defer></script>
+<script src="{{ asset('js/sync/index.js') }}" defer></script>
+
 <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">

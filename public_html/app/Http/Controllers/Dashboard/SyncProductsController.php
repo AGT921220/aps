@@ -5,15 +5,23 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class SyncProductsController extends Controller
 {
     public function index()
     {
+        // phpinfo();
+        // return 1;
         $type = 'catalogo';
         $promoOptionProducts = $this->getPromoOptionProducts($type);
         $localProducts = $this->getLocalProducts();
         $itemCodes = $localProducts->pluck('item_code')->toArray();
+
+
+        $file = 'existenciasProduccion.json';
+        Storage::disk('public')->put($file, json_encode($promoOptionProducts));
+        dd(1);
 
         $toInsert = [];
         $toUpdate = [];
@@ -35,26 +43,54 @@ class SyncProductsController extends Controller
     private function getPromoOptionProducts(string $type): array
     {
 
-        $user = 'CHI0208';
-        $xapikey = 'eeaf988dc5b4e6d3a92095ccd6b7e480';
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
+
+
+        $user = "CHI0208s";
+        $xapikey = "eeaf988dc5b4e6d3a92095ccd6b7e480";
         $headers = array(
             "user: " . $user,
             "x-api-key: " . $xapikey,
         );
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+        curl_setopt($ch, CURLOPT_URL, "https://www.contenidopromo.com/wsds/mx/catalogo/");
+
+        // curl_setopt($ch, CURLOPT_URL, "https://www.contenidopromo.com/wsds/mx/$type/");
         curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1"); //Opcional
-        curl_setopt(
-            $ch,
-            CURLOPT_URL,
-            "https://www.contenidopromo.com/wsds/mx/$type/"
-        );
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 32);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 2);
+
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt( $ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+
+
         $result = curl_exec($ch);
+
+        $errNo = curl_errno($ch);
+        var_dump('Error'.$errNo);
+        echo '<br/>';
+
+        var_dump($result);
+
+
+        echo '<br/>';
+
+        $err = curl_error($ch);
+
+        var_dump($err);
+        // var_dump($result);
         curl_close($ch);
+
+        dd(4);
+
         return json_decode($result, true);
     }
 
@@ -98,6 +134,9 @@ class SyncProductsController extends Controller
             'description' => (!!$product['description']) ? $product['description'] : '',
             'size' => (!!$product['size']) ? $product['size'] : 0,
             'family' => (!!$product['family']) ? $product['family'] : '',
+
+            'category' => (!!$product['family']) ? str_replace(' ', '-', $product['family']) : '',
+
             'color' => (!!$product['color']) ? $product['color'] : 0,
             'colors' => (!!$product['colors']) ? $product['colors'] : '',
             'material' => (!!$product['material']) ? $product['material'] : 0,

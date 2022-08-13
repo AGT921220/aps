@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -261,11 +262,23 @@ Route::group(['prefix' => 'cotizaciones'], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'Dashboard\HomeController@index')->name('dashboard');
     Route::resource('/new-products', 'Dashboard\NewProductsController')->only(['index']);
-    Route::resource('/sync/products', 'Dashboard\SyncProductsController')->only(['index']);
     Route::resource('/sync/products-existences', 'Dashboard\SyncProductsExistencesController')->only(['index']);
 });
 
 
 
+
+Route::resource('/sync/products', 'Dashboard\SyncProductsController')->only(['index']);
+
+
 Route::resource('/new', 'HomeController')->only('index');
 Route::resource('/categorias/{category}', 'SectionsController')->only('index');
+
+
+
+Route::get('locale/{locale}', function ($locale)
+{
+    Session::put('locale', $locale);
+    return redirect('/new');
+});
+// Route::get('{slug}', 'HomeController')->only('index');
