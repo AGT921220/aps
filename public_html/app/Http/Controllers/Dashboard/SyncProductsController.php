@@ -47,7 +47,7 @@ class SyncProductsController extends Controller
         ini_set('display_errors', '1');
 
 
-        $user = "CHI0208s";
+        $user = "CHI0208";
         $xapikey = "eeaf988dc5b4e6d3a92095ccd6b7e480";
         $headers = array(
             "user: " . $user,
@@ -75,21 +75,16 @@ class SyncProductsController extends Controller
         $result = curl_exec($ch);
 
         $errNo = curl_errno($ch);
-        var_dump('Error'.$errNo);
-        echo '<br/>';
-
-        var_dump($result);
-
-
-        echo '<br/>';
-
         $err = curl_error($ch);
 
-        var_dump($err);
+        // var_dump('Error'.$errNo);
+        // echo '<br/>';
         // var_dump($result);
+        // echo '<br/>';
+        // var_dump($err);
+
         curl_close($ch);
 
-        dd(4);
 
         return json_decode($result, true);
     }
