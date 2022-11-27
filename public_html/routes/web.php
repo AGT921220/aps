@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Session;
 // });
 Route::get('/', 'HomeController@home');
 
+
+
 Auth::routes();
 
 
@@ -252,6 +254,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'Dashboard\HomeController@index')->name('dashboard');
     Route::resource('/new-products', 'Dashboard\NewProductsController')->only(['index']);
     Route::resource('/sync/products-existences', 'Dashboard\SyncProductsExistencesController')->only(['index']);
+    
+/* NEW DEVELOP*/
+Route::resource('/clientes', 'Dashboard\ClientsController')->only('index','create');
+Route::resource('/test', 'TestController')->only('index');
+
 });
 
 
@@ -274,7 +281,3 @@ Route::get('locale/{locale}', function ($locale)
 
 
 
-/* NEW DEVELOP*/
-Route::resource('/clientes', 'Dashboard\ClientsController')->only('index');
-
-Route::resource('/test', 'TestController')->only('index');
