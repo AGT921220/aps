@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Product;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class MigrateProductCatalogPromoOption extends Command
 {
@@ -24,6 +25,12 @@ class MigrateProductCatalogPromoOption extends Command
         $promoOptionProducts = $this->getPromoOptionProducts($type);
         $localProducts = $this->getLocalProducts();
         $itemCodes = $localProducts->pluck('item_code')->toArray();
+
+
+        file_put_contents("public/promoOptionProducts.json", json_encode($promoOptionProducts));
+        $file = 'existenciasProduccion.json';
+        Storage::disk('public')->put($file, json_encode($promoOptionProducts));
+
 
         $toInsert = [];
         $toUpdate = [];
@@ -54,7 +61,7 @@ class MigrateProductCatalogPromoOption extends Command
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1"); //Opcional
+        //curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1"); //Opcional
         curl_setopt(
             $ch,
             CURLOPT_URL,

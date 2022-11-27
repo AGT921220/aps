@@ -281,4 +281,6 @@ Route::get('locale/{locale}', function ($locale)
     Session::put('locale', $locale);
     return redirect('/new');
 });
-// Route::get('{slug}', 'HomeController')->only('index');
+
+
+Route::resource('/test', 'TestController')->only('index');

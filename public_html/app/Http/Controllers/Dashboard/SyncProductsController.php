@@ -11,17 +11,24 @@ class SyncProductsController extends Controller
 {
     public function index()
     {
-        // phpinfo();
-        // return 1;
-        $type = 'catalogo';
-        $promoOptionProducts = $this->getPromoOptionProducts($type);
+
+
+
+
+
+        // $type = 'catalogo';
+        // $promoOptionProducts = $this->getPromoOptionProducts($type);
+        $promoOptionProducts = $this->getPromoOptionProductsFromAgsoftweb();
+
         $localProducts = $this->getLocalProducts();
         $itemCodes = $localProducts->pluck('item_code')->toArray();
+        // file_put_contents("promoOptionProducts.json", json_encode($promoOptionProducts));
 
 
-        $file = 'existenciasProduccion.json';
-        Storage::disk('public')->put($file, json_encode($promoOptionProducts));
-        dd(1);
+        // Storage::disk('public')->put('example.txt', 'Contents');
+        // $file = 'existenciasProduccion.json';
+        // Storage::disk('public')->put($file, json_encode($promoOptionProducts));
+        // dd(1);
 
         $toInsert = [];
         $toUpdate = [];
@@ -60,7 +67,7 @@ class SyncProductsController extends Controller
 
         // curl_setopt($ch, CURLOPT_URL, "https://www.contenidopromo.com/wsds/mx/$type/");
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1");
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSLVERSION, 32);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -69,7 +76,7 @@ class SyncProductsController extends Controller
 
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt( $ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 
 
         $result = curl_exec($ch);
@@ -147,5 +154,11 @@ class SyncProductsController extends Controller
             'count_box' => (!!$product['count_box']) ? $product['count_box'] : 0,
             'img' => (!!$product['img']) ? $product['img'] : '',
         ];
+    }
+    private function getPromoOptionProductsFromAgsoftweb()
+    {
+        $url = 'http://aps.agsoftweb.com.mx/promoOptionProducts.json';
+        $json = file_get_contents($url);
+        return json_decode($json, true);
     }
 }

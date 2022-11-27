@@ -1,10 +1,12 @@
-@extends('layouts.app')
+@extends("layouts.app")
 
 
-@section('metas')
-
-@endsection
-
-@section('content')
-@include('page.categories.products.index')
-@endsection
+        @section("metas")
+        
+        <meta name="META" content="EJEMPLO DE ETIQUETA META">
+        
+        @endsection
+        
+        @section("content")
+        @include("page.categories.products.index")
+        @endsection

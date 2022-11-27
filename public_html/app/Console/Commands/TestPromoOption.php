@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Product;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class TestPromoOption extends Command
@@ -18,6 +20,14 @@ class TestPromoOption extends Command
 
     public function handle()
     {
+
+        $products = Product::select(DB::raw('DISTINCT family'))->get();
+
+        $products->map(function ($item) {
+            $this->createBladeFiles(str_replace(" ", "-", $item->family));
+        });
+
+        /*
         $type = 'existencias';
         $promoOptionProducts = $this->getPromoOptionProducts($type);
 
@@ -30,6 +40,30 @@ class TestPromoOption extends Command
         $test  = json_decode($catalogProducts);
         info($test);
         dd(json_encode($test));
+        */
+    }
+    private function createBladeFiles(string $family): void
+    {
+
+
+        $content = '@extends("layouts.app")
+
+
+        @section("metas")
+        
+        <meta name="META" content="EJEMPLO DE ETIQUETA META">
+        
+        @endsection
+        
+        @section("content")
+        @include("page.categories.products.index")
+        @endsection';
+
+        $createfile = fopen($_SERVER['DOCUMENT_ROOT'] . "./resources/views/page/categories/$family.blade.php", 'w',$content);
+//        file_put_contents($createfile, $content);
+fwrite($createfile, $content);
+fclose($createfile);
+
     }
     private function getPromoOptionProducts(string $type): array
     {
