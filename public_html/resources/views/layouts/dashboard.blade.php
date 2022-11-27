@@ -115,10 +115,10 @@
 
             @include('dashboard.partials.contenido.pagina')
               @include('dashboard.partials.contenido.clientes')
-              @include('dashboard.partials.contenido.proveedores')
+              {{-- @include('dashboard.partials.contenido.proveedores')
               @include('dashboard.partials.contenido.facturas')
               @include('dashboard.partials.contenido.facturasProv')
-              @include('dashboard.partials.contenido.newProducts')
+              @include('dashboard.partials.contenido.newProducts') --}}
 
 
         </li>

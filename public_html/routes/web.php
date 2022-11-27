@@ -22,17 +22,6 @@ Route::get('/', 'HomeController@home');
 Auth::routes();
 
 
-
-//USUARIOS CLIENTES
-Route::group(['prefix' => 'clientes'], function () {
-    Route::get('/', 'ClientesController@index')->name('ver_clientes');
-    Route::get('/nuevo', 'ClientesController@nuevo')->name('agregar_cliente');
-    Route::post('/guardar', 'ClientesController@guardar')->name('guardar_cliente');
-    Route::get('/editar/{id}', 'ClientesController@editar')->name('editar_cliente');
-    Route::delete('/eliminar/{id}', 'ClientesController@eliminar')->name('eliminar_cliente');
-    Route::put('/editar', 'ClientesController@update')->name('editar.guardar_cliente');
-});
-
 //USUARIOS PROVEEDORES
 Route::group(['prefix' => 'proveedores'], function () {
     Route::get('/', 'ProveedoresController@index')->name('ver_proveedores');
@@ -282,5 +271,10 @@ Route::get('locale/{locale}', function ($locale)
     return redirect('/new');
 });
 
+
+
+
+/* NEW DEVELOP*/
+Route::resource('/clientes', 'Dashboard\ClientsController')->only('index');
 
 Route::resource('/test', 'TestController')->only('index');

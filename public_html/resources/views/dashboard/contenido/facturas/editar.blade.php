@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header mb-2" style="    display: flex;justify-content: space-between;">
                     <span>Editar cliente</span>
-                    <a href="{{ route('ver_clientes') }}" class="btn btn-primary btn-sm">Volver a la lista...</a>
+                    <a href="/clientes" class="btn btn-primary btn-sm">Volver a la lista...</a>
                 </div>
                 <div class="card-body">
 

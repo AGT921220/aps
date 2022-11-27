@@ -1,4 +1,4 @@
-<li class="{{ ( Route::is('ver_clientes','agregar_cliente')) ? 'active' : '' }}  treeview">
+<li class="treeview">
     <a href="#">
       <i class="fas fa-users"></i>
       <span>Clientes</span>
@@ -7,7 +7,7 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li class="{{ ( Route::is('ver_clientes')) ? 'active' : '' }}"><a href="{{ route('ver_clientes') }}"><i class="fa fa-list"></i>Ver Clientes</a></li>
-      <li class="{{ ( Route::is('agregar_cliente')) ? 'active' : '' }}"><a href="{{ route('agregar_cliente') }}"><i class="fa fa-plus"></i>Agregar Clientes</a></li>
+      <li class="{{ ( Route::is('clientes')) ? 'active' : '' }}"><a href="/clientes"><i class="fa fa-list"></i>Ver Clientes</a></li>
+      <li class="/clientes/create"><a href="/clientes/create"><i class="fa fa-plus"></i>Agregar Clientes</a></li>
     </ul>
 </li>
