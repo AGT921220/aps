@@ -9,5 +9,7 @@ interface ClientRepository
     public function search():ClientResponse;
     // public function update(Training $updatedTraining): array;
     // public function publish(Training $training): array;
-    // public function find(int $trainingId): Training;
+    public function find(int $clientId): ?Client;
+    public function findByName(string $clientName): ?Client;
+
 }

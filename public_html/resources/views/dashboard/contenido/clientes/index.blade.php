@@ -25,15 +25,16 @@
                                 @foreach ($items['data'] as $item)
                                     <tr>
 
-                                        <td> {{ $item->id }}</td>
-                                        <td> {{ $item->name }}</td>
-                                        <td> {{ $item->phone }}</td>
-                                        <td> {{ $item->email }}</td>
+                                        <td> {{ $item['id'] }}</td>
+                                        <td> {{ $item['name'] }}</td>
+                                        <td> {{ $item['phone'] }}</td>
+                                        <td> {{ $item['email'] }}</td>
                                         <td class="actions_table">
+                                            <a class="btn btn-info" href="/clientes/{{$item['id']}}">Ver</a>
                                             {{-- <a 
                                             data-id="{{$item->id}}"
                                             {{-- href="/clientes/{{ $item->id }}/perfiles" --}}
-                                                class="btn btn-primary show_datatable_profiles">Perfiles</a> --}}
+                                                {{-- class="btn btn-primary show_datatable_profiles">Perfiles</a> --}} 
 
                                             {{-- <a href="/clientes/{{ $item->id }}/edit"
                                                 class="btn btn-warning">Editar</a>

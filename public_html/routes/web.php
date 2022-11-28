@@ -256,7 +256,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/sync/products-existences', 'Dashboard\SyncProductsExistencesController')->only(['index']);
     
 /* NEW DEVELOP*/
-Route::resource('/clientes', 'Dashboard\ClientsController')->only('index','create');
+Route::resource('/clientes', 'Dashboard\ClientsController')->only('index','create','store','show');
 Route::resource('/test', 'TestController')->only('index');
 
 });
