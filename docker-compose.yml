@@ -50,3 +50,17 @@ services:
       - "9000:9000"
     networks:
       - appnetwork
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    # links:
+    #   - mysql-aps
+    environment:
+      PMA_HOST: mysql-aps
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+    networks:
+      - appnetwork
