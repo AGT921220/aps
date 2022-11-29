@@ -48,10 +48,10 @@ class InitialSetupCommand extends Command
     {
         $adminUser = new User();
         $adminUser->name = 'Alfredo';
-        $adminUser->paternal_surname = 'Gutiérrez';
-        $adminUser->maternal_surname = 'González';
-        $adminUser->phone = '6144950659';
-        $adminUser->rol = 'admin';
+        // $adminUser->paternal_surname = 'Gutiérrez';
+        // $adminUser->maternal_surname = 'González';
+        // $adminUser->phone = '6144950659';
+        // $adminUser->rol = 'admin';
         $adminUser->email = 'admin@aps.com';
         $adminUser->password = Hash::make('admin');
         $adminUser->save();
