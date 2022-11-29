@@ -53,7 +53,6 @@ class ClientEloquentRepository implements ClientRepository
 
     public function find(int $clientId): ?DomainClient
     {
-
         $client = Client::find($clientId);
         if (!$client) {
             return null;

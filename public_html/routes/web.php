@@ -257,6 +257,10 @@ Route::group(['middleware' => ['auth']], function () {
     
 /* NEW DEVELOP*/
 Route::resource('/clientes', 'Dashboard\ClientsController')->only('index','create','store','show');
+Route::resource('/ordenes-de-trabajo', 'Dashboard\WorkOrdersController')->only('index','create','store','show');
+Route::resource('/finalizar-ordenes-de-trabajo', 'Dashboard\WorkOrdersFinishedController')->only('update');
+
+
 Route::resource('/test', 'TestController')->only('index');
 
 });

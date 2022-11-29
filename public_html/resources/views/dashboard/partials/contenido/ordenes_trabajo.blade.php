@@ -9,7 +9,7 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li class="{{ ( Route::is('clientes')) ? 'active' : '' }}"><a href="/clientes"><i class="fa fa-list"></i>Ver Clientes</a></li>
-      <li class="/clientes/create"><a href="/clientes/create"><i class="fa fa-plus"></i>Agregar Clientes</a></li>
+      <li class="{{ ( Route::is('ordenes-de-trabajo')) ? 'active' : '' }}"><a href="/ordenes-de-trabajo"><i class="fa fa-list"></i>Ver Órdenes</a></li>
+      <li class="/ordenes-de-trabajo/create"><a href="/ordenes-de-trabajo/create"><i class="fa fa-plus"></i>Agregar Órden</a></li>
     </ul>
 </li>
