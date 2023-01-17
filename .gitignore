@@ -10,7 +10,7 @@ aps.sql/
 # Laravel 5 & Lumen specific
 public/storage
 public/hot
-
+docker-compose.yml
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
 public_html/hot

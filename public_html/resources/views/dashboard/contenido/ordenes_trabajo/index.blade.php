@@ -38,7 +38,6 @@
 
                                         <td class="actions_table">
                                             @if($item['is_finishable'])
-                                            {{-- <a class="btn btn-success" href="/ordenes-de-trabajo/finalizar/{{ $item['id'] }}">Finalizar</a>  --}}
                                             <form action="/finalizar-ordenes-de-trabajo/{{ $item['id'] }}" class="d-inline"
                                                 method="POST">
                                                 @method('PUT')
@@ -46,21 +45,6 @@
                                                 <button type="submit" class="btn btn-success btn-sm">Finalizar</button>
                                             </form>
                                             @endif
-                                            {{-- <a class="btn btn-info" href="/clientes/{{ $item['id'] }}">Ver</a> --}}
-                                            {{-- <a 
-                                            data-id="{{$item->id}}"
-                                            {{-- href="/clientes/{{ $item->id }}/perfiles" --}}
-                                            {{-- class="btn btn-primary show_datatable_profiles">Perfiles</a> --}}
-
-                                            {{-- <a href="/clientes/{{ $item->id }}/edit"
-                                                class="btn btn-warning">Editar</a>
-
-                                            <form action="/clientes/{{ $item->id }}" class="d-inline"
-                                                method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                            </form> --}}
                                         </td>
 
                                     </tr>
