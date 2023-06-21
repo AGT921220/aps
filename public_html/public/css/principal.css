@@ -89,20 +89,24 @@ label{
 }
 /*IMAGENES*/
 /*SECCION PRODUCTOS*/
-.home_content{
+.productContainer{
     width: 95%;
     margin: auto;
     display: flex;
     margin-top: 5%;
     flex-direction: column;
 }
-.home_content h4,.title{
+.productContainer h4,.title{
     color: #0000FF;
     background-color: #d6e8fd;
     width: 100%;
     margin: auto;
     text-align: center;
     padding: 1em;
+
+    box-shadow: 4px 2px 20px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: #d6e8fd94;
 }
 .image_Container{
     justify-content: center;

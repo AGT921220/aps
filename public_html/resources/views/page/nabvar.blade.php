@@ -38,12 +38,13 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link linking" data-id="nosotros">Nosotros</a>
+                <a class="nav-link linking" data-id="contacto">Contacto</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link linking" data-id="contacto">Contacto</a>
+                <a class="nav-link linking" data-id="nosotros">Nosotros</a>
             </li>
+
 
         </ul>
 
