@@ -20,43 +20,23 @@ class ClientCreator
     }
 
     public function __invoke(
-        string $name,
-        ?string $email = null,
-        ?string $phone = null,
-        ?string $street = null,
-        ?string $colony = null,
-        ?string $noInt = null,
-        ?string $noExt = null,
-        ?string $cp = null,
-        ?string $observations = null
-    ): array {
+        string $company,
+        string $person,
+        string $phone,
+        string $email,
+        ?string $secondPhone = null,
+        ?string $secondEmail = null
+    ): int {
+
         $client = new Client(
-            $name,
-            $email,
+            $company,
+            $person,
             $phone,
-            $street,
-            $colony,
-            $noInt,
-            $noExt,
-            $cp,
-            $observations
+            $email,
+            $secondPhone,
+            $secondEmail
         );
 
-        $id = $this->repository->create($client);
-
-        $persistedClient = Client::create(
-            $name,
-            $email,
-            $phone,
-            $street,
-            $colony,
-            $noInt,
-            $noExt,
-            $cp,
-            $observations,
-            $id
-        );
-
-        return $persistedClient->toArray();
+        return $this->repository->save($client);
     }
 }

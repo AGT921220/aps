@@ -5,88 +5,30 @@ namespace App\Bussines\Erp\Client\Domain;
 class Client
 {
     private $id;
-    private $name;
+    private $company;
+    private $person;
+    private $phone;
+    private $email;
+    private $secondPhone;
+    private $secondEmail;
 
     public function __construct(
-        string $name,
-        string $email = null,
-        string $phone = null,
-        string $street = null,
-        string $colony = null,
-        string $noInt = null,
-        string $noExt = null,
-        string $cp = null,
-        string $observations = null,
-        int $id = null
+        string $company,
+        string $person,
+        string $phone,
+        string $email,
+        ?string $secondPhone = null,
+        ?string $secondEmail = null,
+        ?int $id = null
     ) {
 
         $this->id = $id;
-        $this->name = $name;
+        $this->company = $company;
+        $this->person = $person;
         $this->email = $email;
         $this->phone = $phone;
-        $this->street = $street;
-        $this->colony = $colony;
-        $this->noInt = $noInt;
-        $this->noExt = $noExt;
-        $this->cp = $cp;
-        $this->observations = $observations;
-    }
-
-    public static function create(
-        string $name,
-        string $email = null,
-        string $phone = null,
-        string $street = null,
-        string $colony = null,
-        string $noInt = null,
-        string $noExt = null,
-        string $cp = null,
-        string $observations = null,
-        int $id = null
-    ): self {
-
-
-        $client = new self(
-            $name,
-            $email,
-            $phone,
-            $street,
-            $colony,
-            $noInt,
-            $noExt,
-            $cp,
-            $observations,
-            $id
-        );
-        return $client;
-    }
-
-    public static function update(
-        string $name,
-        string $email = null,
-        string $phone = null,
-        string $street = null,
-        string $colony = null,
-        string $noInt = null,
-        string $noExt = null,
-        string $cp = null,
-        string $observations = null,
-        int $id = null
-    ): self {
-
-        $client = new self(
-            $name,
-            $email,
-            $phone,
-            $street,
-            $colony,
-            $noInt,
-            $noExt,
-            $cp,
-            $observations,
-            $id
-        );
-        return $client;
+        $this->secondEmail = $secondEmail;
+        $this->secondPhone = $secondPhone;
     }
 
 
@@ -94,15 +36,12 @@ class Client
     {
         return [
             'id' => $this->getId(),
-            'name' => $this->getName(),
-            'email' => $this->getEmail(),
+            'company_name' => $this->getCompany(),
+            'person_name' => $this->getPerson(),
             'phone' => $this->getPhone(),
-            'street'=>$this->getStreet(),
-            'colony'=>$this->getColony(),
-            'no_ext'=>$this->getNoExt(),
-            'no_int'=>$this->getNoInt(),
-            'cp'=>$this->getCP(),
-            'observations'=>$this->getObservations()
+            'email' => $this->getEmail(),
+            'second_phone' => $this->getSecondPhone(),
+            'second_email' => $this->getSecondEmail(),
         ];
     }
 
@@ -111,41 +50,29 @@ class Client
         return $this->id;
     }
 
-    public function getName(): string
+    public function getCompany(): string
     {
-        return $this->name;
+        return $this->company;
     }
-    public function getEmail(): ?string
+    public function getPerson(): string
     {
-        return $this->email;
+        return $this->person;
     }
 
-    public function getPhone(): ?string
+    public function getPhone(): string
     {
         return $this->phone;
     }
-    public function getStreet(): ?string
+    public function getEmail(): string
     {
-        return $this->street;
+        return $this->email;
     }
-    public function getColony(): ?string
+    public function getSecondPhone(): ?string
     {
-        return $this->colony;
+        return $this->secondPhone;
     }
-    public function getNoInt(): ?string
+    public function getSecondEmail(): ?string
     {
-        return $this->noInt;
-    }
-    public function getNoExt(): ?string
-    {
-        return $this->noExt;
-    }
-    public function getCP(): ?string
-    {
-        return $this->cp;
-    }
-    public function getObservations(): ?string
-    {
-        return $this->observations;
+        return $this->secondEmail;
     }
 }

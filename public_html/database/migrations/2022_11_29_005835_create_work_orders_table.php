@@ -26,7 +26,8 @@ class CreateWorkOrdersTable extends Migration
             $table->foreign('client_id')
             ->references('id')
             ->on('clients')
-            ->onDelete('set null');
+            ->onDelete('cascade');
+
             $table->timestamp('delivery_date')->nullable();         
             $table->timestamps();
             $table->string('status');        

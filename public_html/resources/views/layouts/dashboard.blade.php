@@ -118,8 +118,12 @@
 
 
                     @include('dashboard.partials.contenido.pagina')
-                    @include('dashboard.partials.contenido.clientes')
                     @include('dashboard.partials.contenido.ordenes_trabajo')
+                    @include('dashboard.partials.contenido.facturacion')
+                    @include('dashboard.partials.contenido.supplier')
+                    @include('dashboard.partials.contenido.client')
+
+
                     {{-- @include('dashboard.partials.contenido.proveedores')
               @include('dashboard.partials.contenido.facturas')
               @include('dashboard.partials.contenido.facturasProv')

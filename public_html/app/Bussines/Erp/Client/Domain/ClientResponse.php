@@ -14,12 +14,9 @@ class ClientResponse
         $this->data = $data;
     }
 
-
     public function toArray(): array
     {
         return [
-            // 'per_page' => $this->perPage,
-            // 'current_page' => $this->currentPage,
             'total' => $this->total,
             'data' => array_map(function (Client $client) {
                 return $client->toArray();

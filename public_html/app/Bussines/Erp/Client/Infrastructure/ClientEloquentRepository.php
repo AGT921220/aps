@@ -10,18 +10,17 @@ use App\Models\Client;
 class ClientEloquentRepository implements ClientRepository
 {
 
-    public function create(DomainClient $client): int
+    public function save(DomainClient $client): int
     {
         $model = new Client();
-        $model->name= $client->getName();
-        $model->email= $client->getEmail();
+
+
+        $model->company_name= $client->getCompany();
+        $model->person_name= $client->getPerson();
         $model->phone= $client->getPhone();
-        $model->street= $client->getStreet();
-        $model->colony= $client->getColony();
-        $model->no_int= $client->getNoInt();
-        $model->no_ext= $client->getNoExt();
-        $model->cp= $client->getCP();
-        $model->observations= $client->getObservations();
+        $model->second_phone= $client->getSecondPhone();
+        $model->email= $client->getEmail();
+        $model->second_email= $client->getSecondEmail();
         $model->save();
         return $model->id;
     }
@@ -31,16 +30,14 @@ class ClientEloquentRepository implements ClientRepository
         $clients = Client::get();
 
         $domainClients = $clients->map(function ($client) {
+            // dd($client->toArray());
             return (new DomainClient(
-                $client->name,
-                $client->email,
+                $client->company_name,
+                $client->person_name,
                 $client->phone,
-                $client->street,
-                $client->colony,
-                $client->no_int,
-                $client->no_ext,
-                $client->cp,
-                $client->observations,
+                $client->second_phone,
+                $client->email,
+                $client->second_email,
                 $client->id
             ));
         });
@@ -51,43 +48,43 @@ class ClientEloquentRepository implements ClientRepository
         );
     }
 
-    public function find(int $clientId): ?DomainClient
-    {
-        $client = Client::find($clientId);
-        if (!$client) {
-            return null;
-        }
-        return (new DomainClient(
-            $client->name,
-            $client->email,
-            $client->phone,
-            $client->street,
-            $client->colony,
-            $client->no_int,
-            $client->no_ext,
-            $client->cp,
-            $client->observations,
-            $client->id
-    ));
-    }
+    // public function find(int $clientId): ?DomainClient
+    // {
+    //     $client = Client::find($clientId);
+    //     if (!$client) {
+    //         return null;
+    //     }
+    //     return (new DomainClient(
+    //         $client->name,
+    //         $client->email,
+    //         $client->phone,
+    //         $client->street,
+    //         $client->colony,
+    //         $client->no_int,
+    //         $client->no_ext,
+    //         $client->cp,
+    //         $client->observations,
+    //         $client->id
+    // ));
+    // }
 
-    public function findByName(string $clientName): ?DomainClient
-    {
-        $client = Client::where('name', $clientName)->first();
-        if (!$client) {
-            return null;
-        }
-        return (new DomainClient(
-            $client->name,
-            $client->email,
-            $client->phone,
-            $client->street,
-            $client->colony,
-            $client->no_int,
-            $client->no_ext,
-            $client->cp,
-            $client->observations,
-            $client->id
-    ));
-    }
+    // public function findByName(string $clientName): ?DomainClient
+    // {
+    //     $client = Client::where('name', $clientName)->first();
+    //     if (!$client) {
+    //         return null;
+    //     }
+    //     return (new DomainClient(
+    //         $client->name,
+    //         $client->email,
+    //         $client->phone,
+    //         $client->street,
+    //         $client->colony,
+    //         $client->no_int,
+    //         $client->no_ext,
+    //         $client->cp,
+    //         $client->observations,
+    //         $client->id
+    // ));
+    // }
 }

@@ -11,7 +11,8 @@ class SyncProductsExistencesController extends Controller
     {
         $type = 'existencias';
         $promoOptionExistences = $this->getPromoOptionExistences($type);
-
+        
+        dd($promoOptionExistences);
         //$promoOptionExistences  = json_decode(Storage::get('existenciasProduccion.json'), true);
         $this->updateExistences($promoOptionExistences);
         return redirect('/new-products')->with('success', 'Existencias Actualizadas');
