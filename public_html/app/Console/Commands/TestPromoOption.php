@@ -78,7 +78,7 @@ fclose($createfile);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1"); //Opcional
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "demo=1"); //Opcional
         curl_setopt(
             $ch,
             CURLOPT_URL,

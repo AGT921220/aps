@@ -23,14 +23,14 @@ $descripcion = strip_tags(htmlspecialchars($_POST['descripcion']));
 
 // Create the email and send the message
 //admin@promocionalesaps.com.mx
-$to = "alfredo.gutierrez.92@hotmail.com"; // Add your email address inbetween the "" replacing yourname@yourdomain.com - This is where the form will send a message to.
+$to = "ventas@promocionalesaps.com.mx"; // Add your email address inbetween the "" replacing yourname@yourdomain.com - This is where the form will send a message to.
 $subject = "Contacto: Cotización".$nombre;
 $body = "Producto: ".$producto.
 " \n\n Cantidad: ".$cantidad.
 " \n\n Telefono: ".$telefono.
 " \n\n Correo: ".$email.
 " \n\n Nombre: ".$nombre.
-" \n\n Descripción: ".$descripcion;
+" \n\n Descripcion: ".$descripcion;
 $header = "From: cotizacion@promocionalesaps.com.mx\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
 //$header .= "Reply-To: email";	
 

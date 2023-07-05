@@ -56,6 +56,12 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'promo_option_user' => env('PROMO_OPTION_USER', null),
+    'promo_option_api_key' => env('PROMO_OPTION_API_KEY', null),
+
+    
+    
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -176,6 +182,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ClientServiceProvider::class,
         App\Providers\WorkOrderServiceProvider::class,        
+        App\Providers\ErpServiceProvider::class,
+
     ],
 
     /*

@@ -34,7 +34,7 @@ if($_POST['token']){
 
 // Create the email and send the message
 //admin@promocionalesaps.com.mx
-$to = "alfredo.gutierrez.92@hotmail.com"; // Add your email address inbetween the "" replacing yourname@yourdomain.com - This is where the form will send a message to.
+$to = "ventas@promocionalesaps.com.mx"; // Add your email address inbetween the "" replacing yourname@yourdomain.com - This is where the form will send a message to.
 $subject = "Contacto: Contacto ".$nombre;
 $body = 
 " \n\n Telefono: ".$telefono.

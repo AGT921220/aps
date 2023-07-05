@@ -49,8 +49,6 @@ class HomeController extends Controller
         foreach ($categorias as  $item) {
             $item->subcategorias  = Subcategorias::where('status', 'Visible')->where('category', $item->id)->get();
         }
-
-        // return $categorias;
         return view('home', compact('categorias'));
     }
 }

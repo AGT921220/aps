@@ -4,8 +4,6 @@ namespace App\Console\Commands;
 
 use App\Product;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 
 class CheckExistencePromoOption extends Command
 {

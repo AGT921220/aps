@@ -107,10 +107,6 @@ Route::resource('/test', 'TestController')->only('index');
 
 
 
-Route::resource('/sync/products', 'Dashboard\SyncProductsController')->only(['index']);
-
-
-
 
 Route::resource('/new', 'HomeController')->only('index');
 Route::resource('/categorias/{category}', 'SectionsController')->only('index');
@@ -122,6 +118,7 @@ Route::resource('/categorias/{category}', 'SectionsController')->only('index');
 Route::resource('/facturacion', 'Dashboard\BillingController')->only(['index','store']);
 Route::resource('/suppliers', 'Dashboard\SupplierController')->only(['index','store','create']);
 Route::resource('/clients', 'Dashboard\ClientController')->only(['index','create','store']);
+Route::resource('/test', 'Dashboard\TestController')->only(['index','create','store']);
 
 
 

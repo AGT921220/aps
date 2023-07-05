@@ -39,6 +39,7 @@
     35 => 'App\\Providers\\RouteServiceProvider',
     36 => 'App\\Providers\\ClientServiceProvider',
     37 => 'App\\Providers\\WorkOrderServiceProvider',
+    38 => 'App\\Providers\\ErpServiceProvider',
   ),
   'eager' => 
   array (
@@ -67,6 +68,7 @@
     22 => 'App\\Providers\\RouteServiceProvider',
     23 => 'App\\Providers\\ClientServiceProvider',
     24 => 'App\\Providers\\WorkOrderServiceProvider',
+    25 => 'App\\Providers\\ErpServiceProvider',
   ),
   'deferred' => 
   array (
