@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AgsoftWeb | Plataforma</title>
+    <title>APS | Plataforma</title>
 
 
 
@@ -45,19 +45,6 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css">
 
-
-    <!-- fullCalendar -->
-    <link href="{{ asset('calendario/packages/core/main.css') }}" rel='stylesheet' />
-    <link href="{{ asset('calendario/packages/daygrid/main.css') }}" rel='stylesheet' />
-    <link href="{{ asset('calendario/packages/timegrid/main.css') }}" rel='stylesheet' />
-    <link href="{{ asset('calendario/packages/list/main.css') }}" rel='stylesheet' />
-    <script src="{{ asset('calendario/packages/core/main.js') }}"></script>
-    <script src="{{ asset('calendario/packages/interaction/main.js') }}"></script>
-    <script src="{{ asset('calendario/packages/daygrid/main.js') }}"></script>
-    <script src="{{ asset('calendario/packages/timegrid/main.js') }}"></script>
-    <script src="{{ asset('calendario/packages/list/main.js') }}"></script>
-
-
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -69,7 +56,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>W</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Agsoft</b>Web</span>
+                <span class="logo-lg"><b>Aps</b>Web</span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -122,6 +109,7 @@
                     @include('dashboard.partials.contenido.facturacion')
                     @include('dashboard.partials.contenido.supplier')
                     @include('dashboard.partials.contenido.client')
+                    @include('dashboard.partials.contenido.product')
 
 
                     {{-- @include('dashboard.partials.contenido.proveedores')
@@ -142,17 +130,11 @@
         </aside>
 
 
-        <div class="float_add_cita"
-            style="    width: 75px;
-  height: 75px;
-  background-color: red;
-  border-radius: 100px;
-  position: absolute;
-  display:none;">
-            +</div>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" 
+        {{-- style="min-height: 0vh !important; background-color:white !important; height:0px !important" --}}
+        >
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 {{--                <h1>Dashboard <small>Panel de control</small></h1> --}}
@@ -185,7 +167,7 @@
             <div class="pull-right hidden-xs">
 
             </div>
-            <strong>Copyright &copy; 2021 <a href="https://agsoftweb.com.mx">Agsoft Web</a>.</strong>
+            <strong>Copyright &copy; {{ date('Y') }} <a href="https://agsoftweb.com.mx">Agsoft Web</a>.</strong>
         </footer>
 
         <!-- Control Sidebar -->
@@ -340,7 +322,7 @@
 -->
 
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
 
 
 

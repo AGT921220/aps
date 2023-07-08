@@ -10,16 +10,15 @@ class ProductsMigraterCommand extends Command
     protected $signature = 'migrate_products';
     protected $description = 'Migra Productos de Promo Opción al Catálogo';
 
-    private $migrater;
-    public function __construct(ProductsPromoOptionMigrater $migrater)
+    private $promoOptionMigrater;
+    public function __construct(ProductsPromoOptionMigrater $promoOptionMigrater)
     {
         parent::__construct();
-        $this->migrater = $migrater;
+        $this->promoOptionMigrater = $promoOptionMigrater;
     }
     public function handle()
     {
-        // $this->info('test');
-        return;
-        $this->migrater->__invoke();
+        info('ProductsMigraterCommand');
+        $this->promoOptionMigrater->__invoke();
     }
 }

@@ -92,8 +92,6 @@ Route::post('/api/inicio', 'Api\InicioController@lista');
 //SINCRONIZACION
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'Dashboard\HomeController@index')->name('dashboard');
-    Route::resource('/new-products', 'Dashboard\NewProductsController')->only(['index']);
-    Route::resource('/sync/products-existences', 'Dashboard\SyncProductsExistencesController')->only(['index']);
     
 /* NEW DEVELOP*/
 Route::resource('/ordenes-de-trabajo', 'Dashboard\WorkOrdersController')->only('index','create','store','show');
@@ -118,6 +116,9 @@ Route::resource('/categorias/{category}', 'SectionsController')->only('index');
 Route::resource('/facturacion', 'Dashboard\BillingController')->only(['index','store']);
 Route::resource('/suppliers', 'Dashboard\SupplierController')->only(['index','store','create']);
 Route::resource('/clients', 'Dashboard\ClientController')->only(['index','create','store']);
+Route::resource('/products', 'Dashboard\ProductController')->only(['index']);
+
+
 Route::resource('/test', 'Dashboard\TestController')->only(['index','create','store']);
 
 

@@ -16,6 +16,7 @@ class CreateInicioImagensTable extends Migration
         Schema::create('inicio_imagens', function (Blueprint $table) {
             $table->id();
             $table->string('imagen');
+            $table->string('categoria');
             $table->string('status');
             $table->timestamps();
         });

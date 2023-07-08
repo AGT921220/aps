@@ -42,7 +42,7 @@
                                         <td>{{$item->material}}</td>
                                         <td>{{$item->printing}}</td>
                                         <td>{{$item->printing_area}}</td>
-                                        <td>{{$item->existences}}</td>
+                                        <td>{{$item->stock}}</td>
                                         <td>
                                             <img style="width:50px; height:50px" src="{{ asset($item->img) }}">
                                             {{$item->img}}

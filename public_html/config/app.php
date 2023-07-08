@@ -58,6 +58,7 @@ return [
 
     'promo_option_user' => env('PROMO_OPTION_USER', null),
     'promo_option_api_key' => env('PROMO_OPTION_API_KEY', null),
+    'promo_option_api_password' => env('PROMO_OPTION_API_PASSWORD', null),
 
     
     
@@ -73,7 +74,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'America/Monterrey'),
 
     /*
     |--------------------------------------------------------------------------

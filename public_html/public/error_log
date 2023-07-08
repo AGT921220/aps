@@ -1,2 +1,0 @@
-[14-Mar-2021 00:01:06 America/Mexico_City] PHP Warning:  require_once(/home3/agsoftwe/aps.agsoftweb.com.mx/vendor/composer/autoload_real.php): failed to open stream: No such file or directory in /home3/agsoftwe/aps.agsoftweb.com.mx/vendor/autoload.php on line 5
-[14-Mar-2021 00:01:06 America/Mexico_City] PHP Fatal error:  require_once(): Failed opening required '/home3/agsoftwe/aps.agsoftweb.com.mx/vendor/composer/autoload_real.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home3/agsoftwe/aps.agsoftweb.com.mx/vendor/autoload.php on line 5

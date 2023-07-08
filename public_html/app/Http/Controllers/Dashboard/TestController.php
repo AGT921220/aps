@@ -2,37 +2,48 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Bussines\Shared\PromoOption\Infrastructure\PromoOptionClient;
+use App\Bussines\Shared\PromoOption\ProductsExistencesPromoOptionMigrater;
 use App\Bussines\Shared\PromoOption\ProductsPromoOptionMigrater;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 
 class TestController extends Controller
 {
-    private $productsPromoOptionMigrater;
-    public function __construct(ProductsPromoOptionMigrater $productsPromoOptionMigrater)
+
+    private $migrater;
+    private $httpClient;
+    public function __construct(ProductsExistencesPromoOptionMigrater $migrater,
+    
+    PromoOptionClient $httpClient
+    )
     {
-        $this->productsPromoOptionMigrater = $productsPromoOptionMigrater;
+        $this->migrater = $migrater;
+        $this->httpClient = $httpClient;
     }
     public function index()
     {
 
+        return $this->httpClient->getProducts();
 
-                // Obtener la versión de PHP
-                $versionPHP = phpversion();
 
-                // Obtener la versión de Laravel
-                $versionLaravel = app()->version();
-        
-                // Retornar una respuesta al cliente
-                return response()->json([
-                    'version_php' => $versionPHP,
-                    'version_laravel' => $versionLaravel
-                ]);
-        Artisan::call('migrate_products', [
-        ]);
+
+        $this->migrater->__invoke();
         return;
-        $products = $this->productsPromoOptionMigrater->__invoke();
-        
-        return $products;
+
+        // Obtener la versión de PHP
+        $versionPHP = phpversion();
+
+        // Obtener la versión de Laravel
+        $versionLaravel = app()->version();
+        $horaActual = Carbon::now()->toTimeString();
+
+        // Retornar una respuesta al cliente
+        return response()->json([
+            'version_php' => $versionPHP,
+            'version_laravel' => $versionLaravel,
+            'hora' => $horaActual
+        ]);
     }
 }

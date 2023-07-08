@@ -5,6 +5,8 @@ namespace App\Bussines\Shared\PromoOption;
 use App\Bussines\Erp\Product\Domain\Product;
 use App\Bussines\Shared\PromoOption\Infrastructure\PromoOptionClient;
 use App\Models\Product as ModelsProduct;
+use App\Models\ProductImage;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 
 class ProductsPromoOptionMigrater
@@ -17,45 +19,97 @@ class ProductsPromoOptionMigrater
     }
     public function __invoke()
     {
+        info('START');
 
-        $localProductItemCodes = $this->getLocalProducts();
-        $productsToInsert = $this->getPromoOptionProducts($localProductItemCodes);
+        info('getPromoOptionProducts');
+        $promoOptionProducts = $this->getPromoOptionProducts();
+        info('getPromoOptionProducts Finish');
+
+        info('array_map productsToInsert');
+        $productsToInsert = array_map(function (array $data) {
+            unset($data['images']);
+            unset($data['childrens']);
+            return $data;
+        }, $promoOptionProducts);
+        info('array_map productsToInsert Finish');
+
         $chunkedProducts = array_chunk($productsToInsert, self::CHUNK_LIMIT);
 
+        info('chunks');
         foreach ($chunkedProducts as $chunk) {
             ModelsProduct::insert($chunk);
         }
-    }
-    private function getPromoOptionProducts(array $localProductItemCodes): array
-    {
-        $currentDate = Carbon::now()->toDateString();
+        info('chunks Finish');
 
-        $result = array_map(function (array $data) use ($localProductItemCodes, $currentDate) {
-            if (!in_array($data['item_code'], $localProductItemCodes)) {
-                return [
-                    'item_code' => $data['item_code'],
-                    'provider' => Product::PROMOOPTION_TYPE,
-                    'parent_code' => $data['parent_code'],
-                    'family' => $data['family'],
-                    'name' => $data['name'],
-                    'description' => $data['description'],
-                    'color' => $data['color'],
-                    'colors' => $data['colors'],
-                    'size' => $data['size'],
-                    'material' => $data['material'],
-                    'capacity' => $data['capacity'],
-                    'printing' => $data['printing'],
-                    'printing_area' => $data['printing_area'],
-                    'height' =>  $data['height'],
-                    'width' =>  $data['width'],
-                    'length' =>  $data['length'],
-                    'count_box' =>  $data['count_box'],
-                    'img' => $data['img'],
-                    'created_at' => $currentDate,
-                    'updated_at' => $currentDate
+        info('array_map productImages');
+        $productImages = array_map(function (array $product) {
+            return ['images' => $product['images'], 'item_code' => $product['item_code']];
+        }, $promoOptionProducts);
+        info('array_map productImages Finish');
+
+        info('insertProductImages');
+        $this->insertProductImages($productImages);
+        info('insertProductImages Finish');
+
+        info('array_map productChildrens');
+        $productChildrens = array_map(function (array $product) {
+            return ['childrens' => $product['childrens'], 'parent_id' => $product['item_code']];
+        }, $promoOptionProducts);
+        info('array_map productChildrens Finish');
+
+        info('getLocalParentProducts');
+        $allParentProducts = $this->getLocalParentProducts();
+        info('getLocalParentProducts Finish');
+
+
+        info('foreach');
+        $productChildrensToInsert = [];
+        foreach ($productChildrens as $childrens) {
+            foreach ($childrens['childrens'] as $children) {
+
+                $parentId = $allParentProducts->where('item_code', $childrens['parent_id'])->first()->id;
+                $productChildrensToInsert[] = [
+                    'parent_id' => $parentId, 'provider' => Product::PROMOOPTION_TYPE,
+                    'name' => html_entity_decode($children['nombreHijo']),
+                    'item_code' => $children['skuHijo'],
+                    'color'=>$children['color']
                 ];
             }
-        }, $this->httpClient->__invoke(Product::CATALOG_TYPE));
+        }
+        info('foreach Finish');
+
+
+        $chunkedProducts = array_chunk($productChildrensToInsert, self::CHUNK_LIMIT);
+
+        info('chunk');
+        foreach ($chunkedProducts as $chunk) {
+            ModelsProduct::insert($chunk);
+        }
+        info('chunk Finish');
+
+    }
+    private function getPromoOptionProducts(): array
+    {
+        $currentDate = Carbon::now()->toDateString();
+        $localProductItemCodes = $this->getLocalProductItemCodes();
+
+        $result = array_map(function (array $data) use ($localProductItemCodes, $currentDate) {
+            if (!in_array($data['skuPadre'], $localProductItemCodes)) {
+                return [
+                    'item_code' => $data['skuPadre'],
+                    'provider' => Product::PROMOOPTION_TYPE,
+                    'family' => html_entity_decode($data['categorias']),
+                    'name' => html_entity_decode($data['nombrePadre']),
+                    'description' => html_entity_decode($data['descripcion']),
+                    'material' => html_entity_decode($data['material']),
+                    'capacity' => $data['capacidad'],
+                    'created_at' => $currentDate,
+                    'updated_at' => $currentDate,
+                    'images' => $data['imagenesPadre'],
+                    'childrens' => $data['hijos']
+                ];
+            }
+        }, $this->httpClient->getProducts());
 
 
         $result = array_filter($result, function ($value) {
@@ -66,8 +120,35 @@ class ProductsPromoOptionMigrater
 
         return array_values(array_filter($result));
     }
-    private function getLocalProducts(): array
+    private function getLocalProductItemCodes(): array
     {
         return ModelsProduct::select('item_code')->where('provider', Product::PROMOOPTION_TYPE)->pluck('item_code')->toArray();
     }
+    private function insertProductImages(array $products): void
+    {
+        $localProducts = $this->getLocalParentProducts();
+        $productImagesToInsert = [];
+        foreach ($products as $product) {
+            $currentId = $localProducts->where('item_code', $product['item_code'])->first()->id;
+
+            foreach ($product['images'] as $image) {
+                $productImagesToInsert[] = ['product_id' => $currentId, 'image' => $image];
+            }
+            $localProducts->forget($product->id);
+
+            //AQUI
+        }
+        $chunkedProductImages = array_chunk($productImagesToInsert, self::CHUNK_LIMIT);
+
+        foreach ($chunkedProductImages as $chunk) {
+            ProductImage::insert($chunk);
+        }
+    }
+    private function getLocalParentProducts(): Collection
+    {
+        return ModelsProduct::select('item_code', 'id')
+        ->whereNull('parent_id')
+        ->where('provider', Product::PROMOOPTION_TYPE)->get();
+    }
+    
 }

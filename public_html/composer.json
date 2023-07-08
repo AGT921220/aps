@@ -11,23 +11,25 @@
         "php": "^8.0",
         "ext-soap": "*",
         "barryvdh/laravel-snappy": "^1.0",
-        "laravel/framework": "^7.29",
+        "laravel/framework": "^8.0",
+        "dragonmantank/cron-expression": "^3.0.2",
         "spatie/laravel-permission": "^4.1",
         "symfony/mailer": "^5.0",
         "fideloper/proxy": "^4.4",
+        "laravel/ui": "^3.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^2.4"
+        "illuminate/support": "^8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
-        "facade/ignition": "^1.4",
+        "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
-        "laravel/ui": "^2.3",
+        "laravel/ui": "^3.0",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^4.4",
-        "phpunit/phpunit": "^8.0"
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.0"
     },
     "config": {
         "optimize-autoloader": true,

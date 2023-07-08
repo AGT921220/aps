@@ -18,7 +18,7 @@ class TestCommand extends Command
 
     public function handle()
     {
-        $promoOptionProducts = $this->promoOptionClient->__invoke();
+        $promoOptionProducts = $this->promoOptionClient->getProducts();
         dd($promoOptionProducts);
     }
 }

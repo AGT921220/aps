@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ProductsExistencesMigraterCommand;
+use App\Console\Commands\ProductsMigraterCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -28,8 +30,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command(MigrateProductCatalogPromoOption::class)->dailyAt('07:44'); //9:00 pm 1er proceso         
         // $schedule->command(CheckExistencePromoOption::class)->hourly(); //01:50    
 
-        // info('KERNEL');
-        // $schedule->command(ProductsMigraterCommand::class)->everyMinute('02:00');    
+        $schedule->command(ProductsMigraterCommand::class)->dailyAt('00:10');    
+        $schedule->command(ProductsExistencesMigraterCommand::class)->hourly('02:00');    
     }
 
     /**

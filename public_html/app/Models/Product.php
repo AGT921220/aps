@@ -9,4 +9,9 @@ class Product extends Model
 {
     use SoftDeletes;
     protected $table ='products';
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class)->select('image','product_id');
+    }
 }
