@@ -38,7 +38,16 @@
                                             <img src="{{ $image }}"  style="width:100px;">
                                             @endforeach
                                         </td>
-                                        <td> {{ $product['stock'] }}</td>
+                                        <td> 
+                                            Padre: {{ $product['stock'] }}
+
+                                            {!! $product['children_stock']  ? '<h4>Hijos</h4>' : '<h4>No tiene Hijos</h4>' !!}
+                                            
+                                            @foreach ($product['children_stock'] as $childrenStock)
+                                                <p><span>{{$childrenStock['color']}}</span>:{{$childrenStock['stock']}}</p>
+                                            @endforeach
+                                        
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

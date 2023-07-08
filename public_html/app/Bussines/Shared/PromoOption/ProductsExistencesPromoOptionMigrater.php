@@ -21,51 +21,37 @@ class ProductsExistencesPromoOptionMigrater
     public function __invoke()
     {
         info('ProductsExistencesPromoOptionMigrater');
-        $productKeys = $this->getProductKeys();
         $productExistences = $this->getProductStocks();
-        info('getProductStocks');
 
-        $productsToUpdate = [];
+        $codes = collect($productExistences)->pluck('Material')->toArray();
+        $productExistencesNew = [];
 
-        info('foreach');
-        foreach ($productExistences as $productExistence) {
-            $product = $productKeys->where('item_code', $productExistence['Material'])
-                ->whereNotNull('parent_id')
-                ->first();
-            $product = $product ? $product : $product = $productKeys->where('item_code', $productExistence['Material'])
-                ->first();
-
-            if ($product) {
-                $productExistence['id'] = $product->id;
-                $productsToUpdate[] = $productExistence;
-                // $productKeys->forget($product->id);
-
-            } else {
-                info($productExistence['Material']);
-            }
+        foreach ($productExistences as $item) {
+            $productExistencesNew[$item['Material']] = $item;
         }
-        info('foreach Finish');
+        array_shift($productExistences);
+
         DB::beginTransaction();
 
         try {
-            foreach ($productsToUpdate as $product) {
-                ModelsProduct::where('id', $product['id'])
-                    ->update([
-                        'stock' => $product['Stock'],
-                    ]);
-            }
+            ModelsProduct::select('id', 'item_code')
+                ->where('provider', Product::PROMOOPTION_TYPE)
+                ->whereIn('item_code', $codes)
+                ->chunk(self::CHUNK_LIMIT, function ($products) use (&$productExistencesNew) {
+                    $products->each(function ($product) use (&$productExistencesNew) {
+                        $product->stock = $productExistencesNew[$product->item_code]['Stock'];
+                        $product->save();
+                        unset($productExistencesNew['$product->item_code']);
+                    });
+                });
         } catch (Exception $e) {
             DB::rollBack();
         }
-
+        info('finish');
         DB::commit();
     }
     private function getProductStocks(): array
     {
         return $this->httpClient->getStocks();
-    }
-    private function getProductKeys(): Collection
-    {
-        return ModelsProduct::select('id', 'item_code')->where('provider', Product::PROMOOPTION_TYPE)->get();
     }
 }

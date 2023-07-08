@@ -134,7 +134,7 @@ class ProductsPromoOptionMigrater
             foreach ($product['images'] as $image) {
                 $productImagesToInsert[] = ['product_id' => $currentId, 'image' => $image];
             }
-            $localProducts->forget($product->id);
+            // $localProducts->forget($product->id);
 
             //AQUI
         }

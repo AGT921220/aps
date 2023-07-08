@@ -30,6 +30,7 @@ class CreateProductsTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+            $table->index('id');
             $table->index('parent_id');
             $table->index('deleted_at');
             

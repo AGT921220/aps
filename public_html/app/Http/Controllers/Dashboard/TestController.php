@@ -14,17 +14,20 @@ class TestController extends Controller
 
     private $migrater;
     private $httpClient;
+    private $existences;
     public function __construct(ProductsExistencesPromoOptionMigrater $migrater,
-    
+    ProductsExistencesPromoOptionMigrater $existences,
     PromoOptionClient $httpClient
     )
     {
+        $this->existences = $existences;
         $this->migrater = $migrater;
         $this->httpClient = $httpClient;
     }
     public function index()
     {
 
+        return $this->existences->__invoke();
         return $this->httpClient->getProducts();
 
 

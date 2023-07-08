@@ -42,6 +42,10 @@ class PromoOptionClient
             ]);
         
             $result = $response->getBody()->getContents();
+            
+            $result = json_decode($result, true)['response'];
+            // info($result);
+            return $result;	
             return json_decode($result, true)['response'];
         } catch (Exception $e) {
             echo $e->getMessage();
