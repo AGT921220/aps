@@ -35,8 +35,8 @@ class ClientEloquentRepository implements ClientRepository
                 $client->company_name,
                 $client->person_name,
                 $client->phone,
-                $client->second_phone,
                 $client->email,
+                $client->second_phone,
                 $client->second_email,
                 $client->id
             ));

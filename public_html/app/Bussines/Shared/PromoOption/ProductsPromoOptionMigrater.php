@@ -25,68 +25,38 @@ class ProductsPromoOptionMigrater
         $promoOptionProducts = $this->getPromoOptionProducts();
         info('getPromoOptionProducts Finish');
 
-        info('array_map productsToInsert');
         $productsToInsert = array_map(function (array $data) {
             unset($data['images']);
             unset($data['childrens']);
             return $data;
         }, $promoOptionProducts);
-        info('array_map productsToInsert Finish');
 
-        $chunkedProducts = array_chunk($productsToInsert, self::CHUNK_LIMIT);
-
-        info('chunks');
-        foreach ($chunkedProducts as $chunk) {
-            ModelsProduct::insert($chunk);
-        }
-        info('chunks Finish');
-
-        info('array_map productImages');
         $productImages = array_map(function (array $product) {
             return ['images' => $product['images'], 'item_code' => $product['item_code']];
         }, $promoOptionProducts);
-        info('array_map productImages Finish');
 
-        info('insertProductImages');
-        $this->insertProductImages($productImages);
-        info('insertProductImages Finish');
-
-        info('array_map productChildrens');
         $productChildrens = array_map(function (array $product) {
             return ['childrens' => $product['childrens'], 'parent_id' => $product['item_code']];
         }, $promoOptionProducts);
-        info('array_map productChildrens Finish');
-
-        info('getLocalParentProducts');
-        $allParentProducts = $this->getLocalParentProducts();
-        info('getLocalParentProducts Finish');
+        array_shift($promoOptionProducts);
 
 
-        info('foreach');
-        $productChildrensToInsert = [];
-        foreach ($productChildrens as $childrens) {
-            foreach ($childrens['childrens'] as $children) {
+        $this->insertParentProducts($productsToInsert);
+        $this->insertProductImages($productImages);
+        $this->insertChildrenProducts($productsToInsert, $productChildrens);
 
-                $parentId = $allParentProducts->where('item_code', $childrens['parent_id'])->first()->id;
-                $productChildrensToInsert[] = [
-                    'parent_id' => $parentId, 'provider' => Product::PROMOOPTION_TYPE,
-                    'name' => html_entity_decode($children['nombreHijo']),
-                    'item_code' => $children['skuHijo'],
-                    'color'=>$children['color']
-                ];
+
+
+        $childrenImages = [];
+        foreach ($productChildrens as $productChildren) {
+            foreach ($productChildren['childrens'] as $children) {
+                if (!!$children['imagenesHijo']) {
+                    $newChildren = ['item_code' => $children['skuHijo'], 'image' => $children['imagenesHijo'][0]];
+                    $childrenImages[] = $newChildren;
+                }
             }
         }
-        info('foreach Finish');
-
-
-        $chunkedProducts = array_chunk($productChildrensToInsert, self::CHUNK_LIMIT);
-
-        info('chunk');
-        foreach ($chunkedProducts as $chunk) {
-            ModelsProduct::insert($chunk);
-        }
-        info('chunk Finish');
-
+        $this->insertChildrenProductImages($childrenImages);
     }
     private function getPromoOptionProducts(): array
     {
@@ -126,17 +96,29 @@ class ProductsPromoOptionMigrater
     }
     private function insertProductImages(array $products): void
     {
-        $localProducts = $this->getLocalParentProducts();
+        $codes = collect($products)->pluck('item_code')->toArray();
+
+        //AQUI
+        $localProducts = $this->getLocalParentProducts($codes)->toArray();
+
+        $localProductsNew = [];
+
+        foreach ($localProducts as $item) {
+            $localProductsNew[$item['item_code']] = $item;
+        }
+
+
         $productImagesToInsert = [];
         foreach ($products as $product) {
-            $currentId = $localProducts->where('item_code', $product['item_code'])->first()->id;
-
-            foreach ($product['images'] as $image) {
-                $productImagesToInsert[] = ['product_id' => $currentId, 'image' => $image];
+            // $currentId = $localProducts->where('item_code', $product['item_code'])->first()->id;
+            $currentProduct = $localProductsNew[$product['item_code']];
+            if (!$currentProduct) {
+                continue;
             }
-            // $localProducts->forget($product->id);
-
-            //AQUI
+            foreach ($product['images'] as $image) {
+                $productImagesToInsert[] = ['product_id' => $currentProduct['id'], 'image' => $image];
+            }
+            unset($localProductsNew[$product['item_code']]);
         }
         $chunkedProductImages = array_chunk($productImagesToInsert, self::CHUNK_LIMIT);
 
@@ -144,11 +126,99 @@ class ProductsPromoOptionMigrater
             ProductImage::insert($chunk);
         }
     }
-    private function getLocalParentProducts(): Collection
+    private function getLocalParentProducts(array $codes): Collection
     {
         return ModelsProduct::select('item_code', 'id')
-        ->whereNull('parent_id')
-        ->where('provider', Product::PROMOOPTION_TYPE)->get();
+            ->whereNull('parent_id')
+            ->whereIn('item_code', $codes)
+            ->where('provider', Product::PROMOOPTION_TYPE)->get();
     }
-    
+
+    private function getLocalChildrenProducts(array $codes): Collection
+    {
+        return ModelsProduct::select('item_code', 'id')
+            ->whereNotNull('parent_id')
+            ->whereIn('item_code', $codes)
+            ->where('provider', Product::PROMOOPTION_TYPE)->get();
+    }
+
+    private function insertParentProducts(array $productsToInsert): void
+    {
+        $chunkedProducts = array_chunk($productsToInsert, self::CHUNK_LIMIT);
+        info('chunks');
+        foreach ($chunkedProducts as $chunk) {
+            ModelsProduct::insert($chunk);
+        }
+        info('chunks Finish');
+    }
+
+    private function insertChildrenProducts(array $productsToInsert, array $productChildrens): void
+    {
+        $codes = collect($productsToInsert)->pluck('item_code')->toArray();
+        $allParentProducts = $this->getLocalParentProducts($codes);
+        info('getLocalProducts Finish');
+
+
+        $localProductsNew = [];
+
+        foreach ($allParentProducts as $item) {
+            $localProductsNew[$item['item_code']] = $item;
+        }
+
+        info('foreach');
+        $productChildrensToInsert = [];
+        foreach ($productChildrens as $childrens) {
+            foreach ($childrens['childrens'] as $children) {
+
+                if ($children['estatus'] == 1) {
+                    $parent = $localProductsNew[$childrens['parent_id']];
+
+                    $productChildrensToInsert[] = [
+                        'parent_id' => $parent['id'], 'provider' => Product::PROMOOPTION_TYPE,
+                        'name' => html_entity_decode($children['nombreHijo']),
+                        'item_code' => $children['skuHijo'],
+                        'color' => $children['color']
+                    ];
+                }
+            }
+        }
+        info('foreach Finish');
+
+
+        $chunkedProducts = array_chunk($productChildrensToInsert, self::CHUNK_LIMIT);
+
+        info('chunk');
+        foreach ($chunkedProducts as $chunk) {
+            ModelsProduct::insert($chunk);
+        }
+        info('chunk Finish');
+    }
+    private function insertChildrenProductImages(array $childrenProducts): void
+    {
+        $codes = collect($childrenProducts)->pluck('item_code')->toArray();
+        $localProducts = $this->getLocalChildrenProducts($codes);
+        $localProductsNew = [];
+
+        foreach ($localProducts as $item) {
+            $localProductsNew[$item['item_code']] = $item;
+        }
+
+
+
+        $productImagesToInsert = [];
+        foreach ($childrenProducts as $product) {
+            // $currentId = $localProducts->where('item_code', $product['item_code'])->first()->id;
+
+            if (isset($localProductsNew[$product['item_code']])) {
+                $currentProduct = $localProductsNew[$product['item_code']];
+                $productImagesToInsert[] = ['product_id' => $currentProduct['id'], 'image' => $product['image']];
+                unset($localProductsNew[$product['item_code']]);
+            }
+        }
+        $chunkedProductImages = array_chunk($productImagesToInsert, self::CHUNK_LIMIT);
+
+        foreach ($chunkedProductImages as $chunk) {
+            ProductImage::insert($chunk);
+        }
+    }
 }

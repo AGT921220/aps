@@ -15,7 +15,7 @@ class TestController extends Controller
     private $migrater;
     private $httpClient;
     private $existences;
-    public function __construct(ProductsExistencesPromoOptionMigrater $migrater,
+    public function __construct(ProductsPromoOptionMigrater $migrater,
     ProductsExistencesPromoOptionMigrater $existences,
     PromoOptionClient $httpClient
     )
@@ -26,6 +26,8 @@ class TestController extends Controller
     }
     public function index()
     {
+
+        return $this->migrater->__invoke();
 
         return $this->existences->__invoke();
         return $this->httpClient->getProducts();

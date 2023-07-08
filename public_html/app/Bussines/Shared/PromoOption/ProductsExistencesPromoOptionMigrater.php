@@ -41,7 +41,7 @@ class ProductsExistencesPromoOptionMigrater
                     $products->each(function ($product) use (&$productExistencesNew) {
                         $product->stock = $productExistencesNew[$product->item_code]['Stock'];
                         $product->save();
-                        unset($productExistencesNew['$product->item_code']);
+                        unset($productExistencesNew[$product->item_code]);
                     });
                 });
         } catch (Exception $e) {

@@ -111,6 +111,8 @@
                     @include('dashboard.partials.contenido.client')
                     @include('dashboard.partials.contenido.product')
 
+                    @include('dashboard.partials.contenido.quotation')
+
 
                     {{-- @include('dashboard.partials.contenido.proveedores')
               @include('dashboard.partials.contenido.facturas')
@@ -329,6 +331,9 @@
     <script src="{{ asset('chart/Chart.js') }}"></script>
     <script src="{{ asset('chart/utils.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 
     <script src="{{ asset('colorlib/select2/select2.min.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />

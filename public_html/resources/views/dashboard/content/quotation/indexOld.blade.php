@@ -41,15 +41,11 @@
                                         <td> 
                                             Padre: {{ $product['stock'] }}
 
-                                            {!! $product['children_stock']!=null  ? '<h4>Hijos</h4>' : '<h4>No tiene Hijos</h4>' !!}
+                                            {!! $product['children_stock']  ? '<h4>Hijos</h4>' : '<h4>No tiene Hijos</h4>' !!}
                                             
-                                            @if (!!$product['children_stock'])
-                                                
-                                            @foreach ($product['children_stock'] as 
-                                            $childrenStock)
+                                            @foreach ($product['children_stock'] as $childrenStock)
                                                 <p><span>{{$childrenStock['color']}}</span>:{{$childrenStock['stock']}}</p>
                                             @endforeach
-                                            @endif
                                         
                                         </td>
                                     </tr>
@@ -86,6 +82,7 @@
         </div>
 
     </div>
+
 
 @endsection
 <style>

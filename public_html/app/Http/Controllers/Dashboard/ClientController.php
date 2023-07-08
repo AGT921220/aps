@@ -33,8 +33,8 @@ class ClientController extends Controller
             $request->input('company_name'),
             $request->input('person_name'),
             $request->input('phone'),
-            $request->input('second_phone'),
             $request->input('email'),
+            $request->input('second_phone'),
             $request->input('second_email')
         );
 

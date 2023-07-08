@@ -7,6 +7,8 @@ $(document).on("click", ".user-panel", function() {
 
 $(document).ready(function() {
 
+        $('.select_2').select2();
+    
     let heightFootet = $('.main-footer').height()
     let totalHeight = $('body').height()
     var windowHeight = $(window).height();
