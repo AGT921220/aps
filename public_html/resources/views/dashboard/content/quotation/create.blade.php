@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form method="POST" action="/quotation" enctype="multipart/form-data">
+                        <form method="POST" class="quotation_form" action="/quotations" enctype="multipart/form-data">
                             @csrf
 
 
@@ -66,18 +66,19 @@
                                 <div class="form-group col-md-1">
                                     <label>UNITARIO</label>
                                     <input type="number" step="any" placeholder="Cantidad"
-                                        class="form-control mb-2 quantity" />
+                                        class="form-control mb-2 unit_price" />
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label>SUB-TOTAL</label>
-                                    <input type="number" step="any" placeholder="Cantidad"
-                                        class="form-control mb-2 quantity" />
+                                    <input type="number" step="any" placeholder="Sub Total"
+                                        class="form-control mb-2 sub_total" disabled="true" />
                                 </div>
 
                             </div>
 
 
-                            <input type="text" class="product_id">
+                            <input type="hidden" class="product_id">
+                            <input type="hidden" class="image_product_value">
 
                             <div style="margin:1em">
 
@@ -91,29 +92,44 @@
                         <table class="table" id="datatable" style="overflow-x:scroll">
                             <thead>
                                 <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Teléfono</th>
-                                    <th scope="col">Correo</th>
+                                    <th scope="col">Clave</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Unitario</th>
+                                    <th scope="col">Sub Total</th>
+                                    <th scope="col">Imagen</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
-
+                            <tbody class="quotation_tbody">
+                                <tr class="">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">N°</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Teléfono</th>
-                                    <th scope="col">Correo</th>
+                                    <th scope="col">Clave</th>
+                                    <th scope="col">Cantidad</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Unitario</th>
+                                    <th scope="col">Sub Total</th>
+                                    <th scope="col">Imagen</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
 
-                            <button class="btn btn-primary btn-block" type="submit">Guardar</button>
+                    <input type="hidden" name="quotation_details" id="quotationInput">
+
+                            <button class="btn btn-primary btn-block add_quotation_btn" type="button">Guardar</button>
                         </form>
                     </div>
 

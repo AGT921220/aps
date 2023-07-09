@@ -117,7 +117,7 @@ Route::resource('/facturacion', 'Dashboard\BillingController')->only(['index','s
 Route::resource('/suppliers', 'Dashboard\SupplierController')->only(['index','store','create']);
 Route::resource('/clients', 'Dashboard\ClientController')->only(['index','create','store']);
 Route::resource('/products', 'Dashboard\ProductController')->only(['index']);
-Route::resource('/quotations', 'Dashboard\QuotationController')->only(['index','create']);
+Route::resource('/quotations', 'Dashboard\QuotationController')->only(['index','create','store','show']);
 
 
 Route::resource('/test', 'Dashboard\TestController')->only(['index','create','store']);
